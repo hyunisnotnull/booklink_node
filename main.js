@@ -49,13 +49,13 @@ app.get('/', (req, res) => {
 });
 
 // router setting START
-const homeRouter = require('./route/homeRouter');
+const homeRouter = require('./routes/homeRouter');
 app.use('/home', homeRouter);
 
-const bookRouter = require('./route/bookRouter');
+const bookRouter = require('./routes/bookRouter');
 app.use('/book', bookRouter);
 
-const libraryRouter = require('./route/libraryRouter');
+const libraryRouter = require('./routes/libraryRouter');
 app.use('/library', libraryRouter);
 
 app.listen(3000);
