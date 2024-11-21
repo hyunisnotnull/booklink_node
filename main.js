@@ -52,4 +52,4 @@ app.get('/', (req, res) => {
 const homeRouter = require('./route/homeRouter');
 app.use('/home', homeRouter);
 
-app.listen(3001);
+app.listen(3000);
