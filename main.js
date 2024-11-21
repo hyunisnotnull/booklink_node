@@ -52,4 +52,7 @@ app.get('/', (req, res) => {
 const homeRouter = require('./route/homeRouter');
 app.use('/home', homeRouter);
 
+const bookRouter = require('./route/bookRouter');
+app.use('/book', bookRouter);
+
 app.listen(3000);
