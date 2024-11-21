@@ -55,4 +55,7 @@ app.use('/home', homeRouter);
 const bookRouter = require('./route/bookRouter');
 app.use('/book', bookRouter);
 
+const libraryRouter = require('./route/libraryRouter');
+app.use('/library', libraryRouter);
+
 app.listen(3000);
