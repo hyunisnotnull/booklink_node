@@ -8,4 +8,10 @@ router.get('/detail/:bookID', (req, res) => {
     bookService.detail(req, res);
 });
 
+// 도서 상세검색
+router.get('/search_book', (req, res) => {  
+    console.log('/book/search_book');
+    bookService.search_book(req, res);
+});
+
 module.exports = router;
