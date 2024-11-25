@@ -27,6 +27,7 @@ if (process.env.NODE_ENV === 'local') {
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(compression());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(process.env.EVENT_IMAGE_PATH));
 
 // session setting START
 const maxAge = 1000 * 60 * 30;
@@ -57,5 +58,8 @@ app.use('/book', bookRouter);
 
 const libraryRouter = require('./routes/libraryRouter');
 app.use('/library', libraryRouter);
+
+const eventRouter = require('./routes/eventRouter');
+app.use('/event', eventRouter);
 
 app.listen(3000);
