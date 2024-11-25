@@ -16,8 +16,14 @@ router.post('/register_event_confirm', uploads.UPLOAD_EVENT_IMAGES_MIDDLEWARE(),
     eventService.registerEventConfirm(req, res);
 });
 
+// 이벤트 수정 폼
+router.get('/modify_event_form/:id', (req, res) => {
+    console.log('/event/modify_event_form');
+    eventService.modifyEventForm(req, res);
+});
+
 // 이벤트 수정 처리
-router.post('/modify_event_confirm/:id', uploads.UPLOAD_EVENT_IMAGES_MIDDLEWARE(), (req, res) => {
+router.put('/modify_event_confirm/:id', uploads.UPLOAD_EVENT_IMAGES_MIDDLEWARE(), (req, res) => {
     console.log('/event/modify_event_confirm');
     eventService.modifyEventConfirm(req, res);
 });
