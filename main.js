@@ -9,6 +9,7 @@ const dotenv = require('dotenv');
 const cors = require('cors');
 
 app.use(cors());
+app.use(express.json());
 
 if (process.env.NODE_ENV === 'local') {
     console.log('LOCAL ENV!!');
