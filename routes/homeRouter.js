@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const homeService = require('../lib/service/homeService');
 
-// /home
+// home
 router.get('/', (req, res) => {  
     console.log('/home');
     homeService.home(req, res);

@@ -15,6 +15,7 @@ var cookie = require('cookie');
 const secretKey = process.env.SECURITY_KEY; 
 
 app.use(cors());
+app.use(express.json());
 
 if (process.env.NODE_ENV === 'local') {
     console.log('LOCAL ENV!!');
@@ -35,6 +36,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(form_data.array());
 app.use(compression());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(process.env.EVENT_IMAGE_PATH));
 
 // session setting START
 const maxAge = 1000 * 60 * 30;
@@ -164,12 +166,23 @@ app.get('/', (req, res) => {
 
 
 // router setting START
-const homeRouter = require('./route/homeRouter');
+const homeRouter = require('./routes/homeRouter');
 app.use('/home', homeRouter);
 
+<<<<<<< HEAD
 const userRouter = require('./route/userRouter');
 app.use('/user', userRouter);
 
 
+=======
+const bookRouter = require('./routes/bookRouter');
+app.use('/book', bookRouter);
+
+const libraryRouter = require('./routes/libraryRouter');
+app.use('/library', libraryRouter);
+
+const eventRouter = require('./routes/eventRouter');
+app.use('/event', eventRouter);
+>>>>>>> 83e1e684757b9917e40d4645896bb024b7e498b3
 
 app.listen(3000);
