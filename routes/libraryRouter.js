@@ -2,10 +2,10 @@ const express = require('express');
 const router = express.Router();
 const libraryService = require('../lib/service/libraryService');
 
-// library
-router.post('/', (req, res) => {  
+// library JPA
+router.post('/JPA', (req, res) => {  
     console.log('/library');
-    libraryService.updateLibrary(req, res);
+    libraryService.updateLibraryJPA(req, res);
 });
 
 module.exports = router;
