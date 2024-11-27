@@ -1,6 +1,8 @@
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
+const multer = require('multer');
+const form_data = multer();
 const compression = require('compression');
 const path = require('path');
 const session = require('express-session');
@@ -28,7 +30,9 @@ if (process.env.NODE_ENV === 'local') {
     
 }
 
-app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: true}));
+app.use(form_data.array());
 app.use(compression());
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -88,16 +92,16 @@ let passport = pp.passport(app);
 
          const payload = {
           userId: user,
-      };
+        };
 
       const token = jwt.sign(payload, secretKey, { expiresIn: 60 * 1 });
       console.log ('token:', token)
 
 
 
-         res.cookie('token', token)
-//         res.setHeader("Set-Cookie", `token=${user.token}`);
-         res.redirect('localhost:8090/user/testUser');
+          res.cookie('token', token)
+// //         res.setHeader("Set-Cookie", `token=${user.token}`);
+//          res.redirect('localhost:8090/user/testUser');
         });
       }
      })(req, res, next);
@@ -122,12 +126,13 @@ app.use(ensureAuthenticated = (req, res, next) => {
     }
 
   }
-  return res.redirect('http://localhost:3001/signin');
+  return next();
 });
 
 
 
-app.get('/test', ensureAuthenticated, (req,res) => {
+
+app.get('/test', (req,res) => {
 
   //console.log(req)
   // console.log(req.user)
@@ -156,17 +161,14 @@ app.get('/', (req, res) => {
 
 });
 
-// app.post('/signin', (req, res) => {
-//     console.log('/signin');
-//     console.log(req.body)
-
-
-// });
-
-
 
 // router setting START
 const homeRouter = require('./route/homeRouter');
 app.use('/home', homeRouter);
+
+const userRouter = require('./route/userRouter');
+app.use('/user', userRouter);
+
+
 
 app.listen(3000);
