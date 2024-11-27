@@ -101,9 +101,10 @@ let passport = pp.passport(app);
 
           res.cookie('token', token)
 // //         res.setHeader("Set-Cookie", `token=${user.token}`);
-//          res.redirect('localhost:8090/user/testUser');
+          return res.redirect('http://localhost:3001/home');
         });
       }
+      return res.redirect('http://localhost:3001/signin');
      })(req, res, next);
    });
 
