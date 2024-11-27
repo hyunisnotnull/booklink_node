@@ -169,12 +169,10 @@ app.get('/', (req, res) => {
 const homeRouter = require('./routes/homeRouter');
 app.use('/home', homeRouter);
 
-<<<<<<< HEAD
-const userRouter = require('./route/userRouter');
+const userRouter = require('./routes/userRouter');
 app.use('/user', userRouter);
 
 
-=======
 const bookRouter = require('./routes/bookRouter');
 app.use('/book', bookRouter);
 
@@ -183,6 +181,5 @@ app.use('/library', libraryRouter);
 
 const eventRouter = require('./routes/eventRouter');
 app.use('/event', eventRouter);
->>>>>>> 83e1e684757b9917e40d4645896bb024b7e498b3
 
 app.listen(3000);
