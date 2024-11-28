@@ -11,11 +11,15 @@ const dotenv = require('dotenv');
 const pp = require('./lib/passport/passport');
 const cors = require('cors');
 const jwt = require('jsonwebtoken');
-var cookie = require('cookie');
+// const cookie = require('cookie');
+const cookieParser = require('cookie-parser');
 const secretKey = process.env.SECURITY_KEY; 
 
-app.use(cors());
+app.use(cors({ 
+  origin: 'http://localhost:3001',
+  credentials: true}));
 app.use(express.json());
+// app.use(cookieParser());
 
 if (process.env.NODE_ENV === 'local') {
     console.log('LOCAL ENV!!');
@@ -47,6 +51,7 @@ const sessionObj = {
     // store: new MemoryStore({checkPeriod: maxAge}),
     cookie: {
         maxAge: maxAge,
+        sameSite:"none",
     }
 };
 app.use(session(sessionObj));
@@ -101,12 +106,12 @@ let passport = pp.passport(app);
 
 
 
-          res.cookie('token', token)
-// //         res.setHeader("Set-Cookie", `token=${user.token}`);
-          return res.redirect('http://localhost:3001/home');
+          res.cookie('token', token,{ path: "/" })
+          return res.json(payload);
         });
       }
-      return res.redirect('http://localhost:3001/signin');
+      res.clearCookie('token');
+      return res.json({msg:'err'});
      })(req, res, next);
    });
 
