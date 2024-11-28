@@ -16,8 +16,9 @@ const cookieParser = require('cookie-parser');
 const secretKey = process.env.SECURITY_KEY; 
 
 app.use(cors({ 
-  origin: 'http://localhost:3001',
-  credentials: true}));
+  origin: ['http://localhost:3001', 'http://localhost:3002'],
+  credentials: true
+}));
 app.use(express.json());
 // app.use(cookieParser());
 
