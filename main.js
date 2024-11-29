@@ -185,6 +185,9 @@ app.use('/book', bookRouter);
 const libraryRouter = require('./routes/libraryRouter');
 app.use('/library', libraryRouter);
 
+const apiRouter = require('./routes/apiRouter');
+app.use('/api/library', apiRouter);
+
 const eventRouter = require('./routes/eventRouter');
 app.use('/event', eventRouter);
 
