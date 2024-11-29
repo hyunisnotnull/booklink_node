@@ -13,5 +13,19 @@ router.post('/signup', (req, res) => {
     userService.signup(req, res);
 });
 
+router.get('/getuser/:userId', (req, res) => {  
+    console.log('/user/getuser');
+    userService.getuser(req, res);
+});
+
+router.post('/modify', (req, res) => {  
+    console.log('/user/modify');
+    userService.modify(req, res);
+});
+
+router.get('/delete/:userId', (req, res) => {  
+    console.log('/user/delete');
+    userService.delete(req, res);
+});
 
 module.exports = router;
