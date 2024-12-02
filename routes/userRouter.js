@@ -28,4 +28,20 @@ router.get('/delete/:userId', (req, res) => {
     userService.delete(req, res);
 });
 
+// User Wish books
+router.post('/addWishBook', (req, res) => {  
+    console.log('/user/wishBook');
+    userService.addWishBook(req, res);
+});
+
+router.post('/wishBooks', (req, res) => {  
+    console.log('/user/wishBook');
+    userService.wishBooks(req, res);
+});
+
+router.delete('/cancleWishBook', (req, res) => {  
+    console.log('/user/wishBook');
+    userService.cancleWishBook(req, res);
+});
+
 module.exports = router;

@@ -102,7 +102,7 @@ let passport = pp.passport(app);
           userId: user,
         };
 
-      const token = jwt.sign(payload, secretKey, { expiresIn: 60 * 1 });
+      const token = jwt.sign(payload, secretKey, { expiresIn: 60 * 30 });
       console.log ('token:', token)
 
 
