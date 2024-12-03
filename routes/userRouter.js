@@ -49,4 +49,20 @@ router.put('/readWishBook', (req, res) => {
     userService.readWishBook(req, res);
 });
 
+// User Favorite Library
+router.post('/addWishLib', (req, res) => {  
+    console.log('/user/addWishLib');
+    userService.addWishLib(req, res);
+});
+
+router.delete('/cancleWishLib', (req, res) => {  
+    console.log('/user/cancleWishLib');
+    userService.cancleWishLib(req, res);
+});
+
+// router.post('/wishLibrarys', (req, res) => {  
+//     console.log('/user/wishLibrarys');
+//     userService.wishLibrarys(req, res);
+// });
+
 module.exports = router;
