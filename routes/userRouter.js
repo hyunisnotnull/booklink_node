@@ -30,18 +30,23 @@ router.get('/delete/:userId', (req, res) => {
 
 // User Wish books
 router.post('/addWishBook', (req, res) => {  
-    console.log('/user/wishBook');
+    console.log('/user/addWishBook');
     userService.addWishBook(req, res);
 });
 
 router.post('/wishBooks', (req, res) => {  
-    console.log('/user/wishBook');
+    console.log('/user/wishBooks');
     userService.wishBooks(req, res);
 });
 
 router.delete('/cancleWishBook', (req, res) => {  
-    console.log('/user/wishBook');
+    console.log('/user/cancleWishBook');
     userService.cancleWishBook(req, res);
+});
+
+router.put('/readWishBook', (req, res) => {  
+    console.log('/user/readWishBook');
+    userService.readWishBook(req, res);
 });
 
 module.exports = router;
