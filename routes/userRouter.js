@@ -60,9 +60,9 @@ router.delete('/cancleWishLib', (req, res) => {
     userService.cancleWishLib(req, res);
 });
 
-// router.post('/wishLibrarys', (req, res) => {  
-//     console.log('/user/wishLibrarys');
-//     userService.wishLibrarys(req, res);
-// });
+router.post('/wishLibrarys', (req, res) => {  
+    console.log('/user/wishLibrarys');
+    userService.wishLibrarys(req, res);
+});
 
 module.exports = router;
