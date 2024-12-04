@@ -28,6 +28,11 @@ router.get('/delete/:userId', (req, res) => {
     userService.delete(req, res);
 });
 
+router.post('/google', (req, res) => {  
+    console.log('/user/google');
+    userService.google(req, res);
+});
+
 // User Wish books
 router.post('/addWishBook', (req, res) => {  
     console.log('/user/addWishBook');
