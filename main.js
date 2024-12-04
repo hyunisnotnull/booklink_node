@@ -178,6 +178,8 @@ app.use('/home', homeRouter);
 const userRouter = require('./routes/userRouter');
 app.use('/user', userRouter);
 
+const adminRouter = require('./routes/adminRouter');
+app.use('/admin', adminRouter);
 
 const bookRouter = require('./routes/bookRouter');
 app.use('/book', bookRouter);
