@@ -2,10 +2,16 @@ const express = require('express');
 const router = express.Router();
 const bookService = require('../lib/service/bookService');
 
-// 책 상세검색
+// 도서 상세정보
 router.get('/detail/:bookID', (req, res) => {  
     console.log('/book/detail/:bookID');
     bookService.detail(req, res);
+});
+
+// 관련 도서 정보
+router.get('/relatedBook/:bookID', (req, res) => {  
+    console.log('/book/relatedBook/:bookID');
+    bookService.relatedBook(req, res);
 });
 
 // 도서 상세검색
