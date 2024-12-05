@@ -20,4 +20,10 @@ router.get('/loanAvailable', (req, res) => {
     libraryService.getLoanAvailable(req, res);
 });
 
+// 도서관 상세 정보
+router.get('/library_detail/:libCode', (req, res) => {  
+    console.log('/library/library_detail/:libCode');
+    libraryService.library_detail(req, res);
+});
+
 module.exports = router;
