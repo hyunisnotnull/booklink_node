@@ -26,10 +26,22 @@ router.get('/search_library', (req, res) => {
     bookService.search_library(req, res);
 });
 
-// 도서관 상세 정보
-router.get('/library_detail/:libCode', (req, res) => {  
-    console.log('/book/library_detail/:libCode');
-    bookService.library_detail(req, res);
+// 인기 도서 API
+router.get('/popularBooks', (req, res) => {  
+    console.log('/book/popularBooks');
+    bookService.getPopularBooks(req, res);
+});
+
+// 신착 도서 API
+router.get('/newBooks', (req, res) => {  
+    console.log('/book/newBooks');
+    bookService.getNewBooks(req, res);
+});
+
+// 급상승 도서 API
+router.get('/risingBooks', (req, res) => {  
+    console.log('/book/risingBooks');
+    bookService.getRisingBooks(req, res);
 });
 
 module.exports = router;
