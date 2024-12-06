@@ -1,8 +1,8 @@
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
-const multer = require('multer');
-const form_data = multer();
+// const multer = require('multer');
+// const form_data = multer();
 const compression = require('compression');
 const path = require('path');
 const session = require('express-session');
@@ -38,7 +38,7 @@ if (process.env.NODE_ENV === 'local') {
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
-app.use(form_data.array());
+// app.use(form_data.array());
 app.use(compression());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(process.env.EVENT_IMAGE_PATH));
@@ -49,47 +49,20 @@ const sessionObj = {
     secret: 'green!@#$%^',
     resave: false,
     saveUninitialized: true,
-    // store: new MemoryStore({checkPeriod: maxAge}),
     cookie: {
         maxAge: maxAge,
         sameSite:"none",
     }
 };
 app.use(session(sessionObj));
-// session setting END
-
-// app.use(cors({
-//     origin: '*', // 출처 허용 옵션
-//     credential: 'true' // 사용자 인증이 필요한 리소스(쿠키 ..등) 접근
-// }));
 
 
 let passport = pp.passport(app);
-//  app.post('/signin', passport.authenticate('local', {
-//     successRedirect: 'http://localhost:8090/user/testUser',
-//     //successRedirect: 'http://localhost:3000/',
-//      failureRedirect: '/signin?errMsg=ID 또는 PW가 일치하지 않습니다.',
-//  }));
 
  app.post('/signin', async (req, res, next) => {
-//     if (!req.isAuthenticated()) {
-//       next();
-//     } else {
-//         next()
-//       //res.status(403).send('이미 로그인 됨.');
-//     }
-//   }, async(req, res, next) => {
+
      passport.authenticate('user', (authError, user, info) => {
-//       if (authError) {
-//         console.error(authError);
-//         res.status(500);
-//         return next(authError);
-//       }
        if (user) {
-         //req.cookie('token', user)
-         //res.status(500);
-         //req.redirect('http:localhost:8090/user/testUser');
-       //}
        return req.login(user, (loginError) => {
          if (loginError) {
            console.error(loginError);
@@ -118,24 +91,8 @@ let passport = pp.passport(app);
 
 
    app.post('/signinAdmin', async (req, res, next) => {
-    //     if (!req.isAuthenticated()) {
-    //       next();
-    //     } else {
-    //         next()
-    //       //res.status(403).send('이미 로그인 됨.');
-    //     }
-    //   }, async(req, res, next) => {
          passport.authenticate('admin', (authError, user, info) => {
-    //       if (authError) {
-    //         console.error(authError);
-    //         res.status(500);
-    //         return next(authError);
-    //       }
            if (user) {
-             //req.cookie('token', user)
-             //res.status(500);
-             //req.redirect('http:localhost:8090/user/testUser');
-           //}
            return req.login(user, (loginError) => {
              if (loginError) {
                console.error(loginError);
@@ -192,20 +149,6 @@ app.use(ensureAuthenticated = (req, res, next) => {
 
 app.get('/test', (req,res) => {
 
-  //console.log(req)
-  // console.log(req.user)
-  // console.log(req.payload)
-    // console.log("request: ", req.user)
-
-    // try{
-    //     const receivedToken = req.user.user.token;
-    //     console.log("token: ", receivedToken)
-    //     const decoded = jwt.verify(receivedToken, secretKey);
-    //     console.log(decoded);
-
-    // }catch (err){
-    //     console.log('token check error!!');
-    // }
 res.redirect('/')
 
 
