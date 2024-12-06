@@ -12,7 +12,6 @@ router.get('/list', (req, res) => {
 // 이벤트 등록 처리
 router.post('/register_event_confirm', uploads.UPLOAD_EVENT_IMAGES_MIDDLEWARE(), (req, res) => {
     console.log('/event/register_event_confirm');
-    console.log('req.file:', req.file)
     eventService.registerEventConfirm(req, res);
 });
 

@@ -1,12 +1,12 @@
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
-const multer = require('multer');
-const form_data = multer();
+// const multer = require('multer');
+// const form_data = multer();
 const compression = require('compression');
 const path = require('path');
 const session = require('express-session');
-//const MemoryStore = require('memorystore')(session);
+// const MemoryStore = require('memorystore')(session);
 const dotenv = require('dotenv');
 const pp = require('./lib/passport/passport');
 const cors = require('cors');
@@ -38,10 +38,11 @@ if (process.env.NODE_ENV === 'local') {
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
-app.use(form_data.array());
+app.use(express.urlencoded({ extended: true }));
+// app.use(form_data.array());
 app.use(compression());
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(express.static(process.env.EVENT_IMAGE_PATH));
+// app.use(express.static(process.env.EVENT_IMAGE_PATH));
 
 // session setting START
 const maxAge = 1000 * 60 * 30;
@@ -72,6 +73,9 @@ let passport = pp.passport(app);
 //  }));
 
  app.post('/signin', async (req, res, next) => {
+      const { u_id, u_pw } = req.body;
+      console.log('u_id:', u_id);
+      console.log('u_pw:', u_pw);
 //     if (!req.isAuthenticated()) {
 //       next();
 //     } else {
