@@ -51,27 +51,15 @@ const sessionObj = {
     secret: 'green!@#$%^',
     resave: false,
     saveUninitialized: true,
-    // store: new MemoryStore({checkPeriod: maxAge}),
     cookie: {
         maxAge: maxAge,
         sameSite:"none",
     }
 };
 app.use(session(sessionObj));
-// session setting END
-
-// app.use(cors({
-//     origin: '*', // 출처 허용 옵션
-//     credential: 'true' // 사용자 인증이 필요한 리소스(쿠키 ..등) 접근
-// }));
 
 
 let passport = pp.passport(app);
-//  app.post('/signin', passport.authenticate('local', {
-//     successRedirect: 'http://localhost:8090/user/testUser',
-//     //successRedirect: 'http://localhost:3000/',
-//      failureRedirect: '/signin?errMsg=ID 또는 PW가 일치하지 않습니다.',
-//  }));
 
  app.post('/signin', async (req, res, next) => {
       const { u_id, u_pw } = req.body;
@@ -82,17 +70,13 @@ let passport = pp.passport(app);
 //       //res.status(403).send('이미 로그인 됨.');
 //     }
 //   }, async(req, res, next) => {
-     passport.authenticate('local', (authError, user, info) => {
+     passport.authenticate('user', (authError, user, info) => {
 //       if (authError) {
 //         logger.error(authError);
 //         res.status(500);
 //         return next(authError);
 //       }
        if (user) {
-         //req.cookie('token', user)
-         //res.status(500);
-         //req.redirect('http:localhost:8090/user/testUser');
-       //}
        return req.login(user, (loginError) => {
          if (loginError) {
            logger.error(loginError);
@@ -118,6 +102,39 @@ let passport = pp.passport(app);
       return res.json({msg:'err'});
      })(req, res, next);
    });
+
+
+   app.post('/signinAdmin', async (req, res, next) => {
+         passport.authenticate('admin', (authError, user, info) => {
+           if (user) {
+           return req.login(user, (loginError) => {
+             if (loginError) {
+               console.error(loginError);
+               res.status(500);
+               return next(loginError);
+             }
+             logger.info("before send : ---- ", user)
+    
+             const payload = {
+              userId: user.user,
+              role: user.role,
+            };
+    
+          const token = jwt.sign(payload, secretKey, { expiresIn: 60 * 30 });
+          logger.info ('token:', token)
+    
+    
+    
+              res.cookie('token', token,{ path: "/" })
+              return res.json(payload);
+            });
+          }
+          res.clearCookie('token');
+          return res.json({msg:'err'});
+         })(req, res, next);
+       });
+   
+
 
 app.use(ensureAuthenticated = (req, res, next) => {
   if(req.isAuthenticated()){

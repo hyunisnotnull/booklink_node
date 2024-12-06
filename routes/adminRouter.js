@@ -14,6 +14,7 @@ router.post('/signup', (req, res) => {
     adminService.signup(req, res);
 });
 
+
 router.get('/getadmin/:adminId', (req, res) => {  
     logger.info('/admin/getadmin');
     adminService.getadmin(req, res);
@@ -29,9 +30,10 @@ router.get('/delete/:adminId', (req, res) => {
     adminService.delete(req, res);
 });
 
-router.post('/google', (req, res) => {  
-    logger.info('/admin/google');
-    userService.google(req, res);
+router.post('/getid', (req, res) => {  
+    logger.info('/admin/getid');
+    adminService.getid(req, res);
 });
+
 
 module.exports = router;
