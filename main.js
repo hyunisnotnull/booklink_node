@@ -79,7 +79,7 @@ let passport = pp.passport(app);
 //       //res.status(403).send('이미 로그인 됨.');
 //     }
 //   }, async(req, res, next) => {
-     passport.authenticate('local', (authError, user, info) => {
+     passport.authenticate('user', (authError, user, info) => {
 //       if (authError) {
 //         console.error(authError);
 //         res.status(500);
@@ -102,7 +102,7 @@ let passport = pp.passport(app);
           userId: user,
         };
 
-      const token = jwt.sign(payload, secretKey, { expiresIn: 60 * 30 });
+      const token = jwt.sign(payload, secretKey, { expiresIn: 60 * 1 });
       console.log ('token:', token)
 
 
@@ -115,6 +115,55 @@ let passport = pp.passport(app);
       return res.json({msg:'err'});
      })(req, res, next);
    });
+
+
+   app.post('/signinAdmin', async (req, res, next) => {
+    //     if (!req.isAuthenticated()) {
+    //       next();
+    //     } else {
+    //         next()
+    //       //res.status(403).send('이미 로그인 됨.');
+    //     }
+    //   }, async(req, res, next) => {
+         passport.authenticate('admin', (authError, user, info) => {
+    //       if (authError) {
+    //         console.error(authError);
+    //         res.status(500);
+    //         return next(authError);
+    //       }
+           if (user) {
+             //req.cookie('token', user)
+             //res.status(500);
+             //req.redirect('http:localhost:8090/user/testUser');
+           //}
+           return req.login(user, (loginError) => {
+             if (loginError) {
+               console.error(loginError);
+               res.status(500);
+               return next(loginError);
+             }
+             console.log("before send : ---- ", user)
+    
+             const payload = {
+              userId: user.user,
+              role: user.role,
+            };
+    
+          const token = jwt.sign(payload, secretKey, { expiresIn: 60 * 30 });
+          console.log ('token:', token)
+    
+    
+    
+              res.cookie('token', token,{ path: "/" })
+              return res.json(payload);
+            });
+          }
+          res.clearCookie('token');
+          return res.json({msg:'err'});
+         })(req, res, next);
+       });
+   
+
 
 app.use(ensureAuthenticated = (req, res, next) => {
   if(req.isAuthenticated()){
