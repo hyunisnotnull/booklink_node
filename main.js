@@ -169,4 +169,7 @@ app.use('/api/library', apiRouter);
 const eventRouter = require('./routes/eventRouter');
 app.use('/event', eventRouter);
 
+const statRouter = require('./routes/statRouter');
+app.use('/stat', statRouter);
+
 app.listen(3000);
