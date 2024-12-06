@@ -1,36 +1,37 @@
 const express = require('express');
 const router = express.Router()
 const adminService = require('../lib/service/adminService');
+const logger = require('../lib/config/logger');
 
 // admin
 router.get('/signin', (req, res) => {  
-    console.log('/admin/signin');
+    logger.info('/admin/signin');
     adminService.signin(req, res);
 });
 
 router.post('/signup', (req, res) => {  
-    console.log('/admin/signup');
+    logger.info('/admin/signup');
     adminService.signup(req, res);
 });
 
 
 router.get('/getadmin/:adminId', (req, res) => {  
-    console.log('/admin/getadmin');
+    logger.info('/admin/getadmin');
     adminService.getadmin(req, res);
 });
 
 router.post('/modify', (req, res) => {  
-    console.log('/admin/modify');
+    logger.info('/admin/modify');
     adminService.modify(req, res);
 });
 
 router.get('/delete/:adminId', (req, res) => {  
-    console.log('/admin/delete');
+    logger.info('/admin/delete');
     adminService.delete(req, res);
 });
 
 router.post('/getid', (req, res) => {  
-    console.log('/admin/getid');
+    logger.info('/admin/getid');
     adminService.getid(req, res);
 });
 

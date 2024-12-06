@@ -1,67 +1,68 @@
 const express = require('express');
 const router = express.Router();
 const userService = require('../lib/service/userService');
+const logger = require('../lib/config/logger');
 
 // user
 router.post('/signup', (req, res) => {  
-    console.log('/user/signup');
+    logger.info('/user/signup');
     userService.signup(req, res);
 });
 
 router.get('/getuser/:userId', (req, res) => {  
-    console.log('/user/getuser');
+    logger.info('/user/getuser');
     userService.getuser(req, res);
 });
 
 router.post('/modify', (req, res) => {  
-    console.log('/user/modify');
+    logger.info('/user/modify');
     userService.modify(req, res);
 });
 
 router.get('/delete/:userId', (req, res) => {  
-    console.log('/user/delete');
+    logger.info('/user/delete');
     userService.delete(req, res);
 });
 
 router.post('/google', (req, res) => {  
-    console.log('/user/google');
+    logger.info('/user/google');
     userService.google(req, res);
 });
 
 // User Wish books
 router.post('/addWishBook', (req, res) => {  
-    console.log('/user/addWishBook');
+    logger.info('/user/addWishBook');
     userService.addWishBook(req, res);
 });
 
 router.post('/wishBooks', (req, res) => {  
-    console.log('/user/wishBooks');
+    logger.info('/user/wishBooks');
     userService.wishBooks(req, res);
 });
 
 router.delete('/cancleWishBook', (req, res) => {  
-    console.log('/user/cancleWishBook');
+    logger.info('/user/cancleWishBook');
     userService.cancleWishBook(req, res);
 });
 
 router.put('/readWishBook', (req, res) => {  
-    console.log('/user/readWishBook');
+    logger.info('/user/readWishBook');
     userService.readWishBook(req, res);
 });
 
 // User Favorite Library
 router.post('/addWishLib', (req, res) => {  
-    console.log('/user/addWishLib');
+    logger.info('/user/addWishLib');
     userService.addWishLib(req, res);
 });
 
 router.delete('/cancleWishLib', (req, res) => {  
-    console.log('/user/cancleWishLib');
+    logger.info('/user/cancleWishLib');
     userService.cancleWishLib(req, res);
 });
 
 router.post('/wishLibrarys', (req, res) => {  
-    console.log('/user/wishLibrarys');
+    logger.info('/user/wishLibrarys');
     userService.wishLibrarys(req, res);
 });
 
