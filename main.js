@@ -14,6 +14,7 @@ const jwt = require('jsonwebtoken');
 // const cookie = require('cookie');
 const cookieParser = require('cookie-parser');
 const secretKey = process.env.SECURITY_KEY; 
+const logger = require('./lib/config/logger');
 
 app.use(cors({ 
   origin: ['http://localhost:3001', 'http://localhost:3002'],
@@ -23,15 +24,15 @@ app.use(express.json());
 // app.use(cookieParser());
 
 if (process.env.NODE_ENV === 'local') {
-    console.log('LOCAL ENV!!');
+    logger.info('LOCAL ENV!!');
     dotenv.config();
 
 } else if (process.env.NODE_ENV === 'dev') {
-    console.log('DEV ENV!!');
+    logger.info('DEV ENV!!');
     dotenv.config({ path: path.resolve(__dirname, '.env.dev') });
 
 } else {
-    console.log('PROD ENV!!');
+    logger.info('PROD ENV!!');
     dotenv.config({ path: path.resolve(__dirname, '.env.prod') });
     
 }
@@ -74,8 +75,6 @@ let passport = pp.passport(app);
 
  app.post('/signin', async (req, res, next) => {
       const { u_id, u_pw } = req.body;
-      console.log('u_id:', u_id);
-      console.log('u_pw:', u_pw);
 //     if (!req.isAuthenticated()) {
 //       next();
 //     } else {
@@ -85,7 +84,7 @@ let passport = pp.passport(app);
 //   }, async(req, res, next) => {
      passport.authenticate('local', (authError, user, info) => {
 //       if (authError) {
-//         console.error(authError);
+//         logger.error(authError);
 //         res.status(500);
 //         return next(authError);
 //       }
@@ -96,18 +95,18 @@ let passport = pp.passport(app);
        //}
        return req.login(user, (loginError) => {
          if (loginError) {
-           console.error(loginError);
+           logger.error(loginError);
            res.status(500);
            return next(loginError);
          }
-         console.log("before send : ---- ", user)
+         logger.info("before send : ---- ", user)
 
          const payload = {
           userId: user,
         };
 
       const token = jwt.sign(payload, secretKey, { expiresIn: 60 * 30 });
-      console.log ('token:', token)
+      logger.warn ('token:', token)
 
 
 
@@ -130,11 +129,11 @@ app.use(ensureAuthenticated = (req, res, next) => {
   
         const decoded = jwt.verify(receivedToken, secretKey);
         req.payload = decoded;
-        console.log(decoded);
+        logger.warn(decoded);
         return next();
       }
     } catch(err) {
-      console.log(err)
+      logger.error(err)
       return res.redirect('http://localhost:3001/signin');
     }
 
@@ -142,38 +141,11 @@ app.use(ensureAuthenticated = (req, res, next) => {
   return next();
 });
 
-
-
-
-app.get('/test', (req,res) => {
-
-  //console.log(req)
-  // console.log(req.user)
-  // console.log(req.payload)
-    // console.log("request: ", req.user)
-
-    // try{
-    //     const receivedToken = req.user.user.token;
-    //     console.log("token: ", receivedToken)
-    //     const decoded = jwt.verify(receivedToken, secretKey);
-    //     console.log(decoded);
-
-    // }catch (err){
-    //     console.log('token check error!!');
-    // }
-res.redirect('/')
-
-
-
-});
-
-
 app.get('/', (req, res) => {
-    console.log('/');
+    logger.info('/');
     res.redirect('/home');
 
 });
-
 
 // router setting START
 const homeRouter = require('./routes/homeRouter');
