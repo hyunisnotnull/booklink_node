@@ -13,6 +13,7 @@ router.post('/signup', (req, res) => {
     adminService.signup(req, res);
 });
 
+
 router.get('/getadmin/:adminId', (req, res) => {  
     console.log('/admin/getadmin');
     adminService.getadmin(req, res);
@@ -28,9 +29,10 @@ router.get('/delete/:adminId', (req, res) => {
     adminService.delete(req, res);
 });
 
-router.post('/google', (req, res) => {  
-    console.log('/admin/google');
-    userService.google(req, res);
+router.post('/getid', (req, res) => {  
+    console.log('/admin/getid');
+    adminService.getid(req, res);
 });
+
 
 module.exports = router;

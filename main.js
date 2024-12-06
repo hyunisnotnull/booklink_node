@@ -71,7 +71,7 @@ let passport = pp.passport(app);
 //       //res.status(403).send('이미 로그인 됨.');
 //     }
 //   }, async(req, res, next) => {
-     passport.authenticate('local', (authError, user, info) => {
+     passport.authenticate('user', (authError, user, info) => {
 //       if (authError) {
 //         console.error(authError);
 //         res.status(500);
