@@ -29,6 +29,16 @@ router.post('/google', (req, res) => {
     userService.google(req, res);
 });
 
+router.post('/getid', (req, res) => {  
+    logger.info('/user/getid');
+    userService.getid(req, res);
+});
+
+router.post('/getpw', (req, res) => {  
+    logger.info('/user/getpw');
+    userService.getpw(req, res);
+});
+
 // User Wish books
 router.post('/addWishBook', (req, res) => {  
     logger.info('/user/addWishBook');
