@@ -83,16 +83,14 @@ let passport = pp.passport(app);
            res.status(500);
            return next(loginError);
          }
-         logger.info("before send : ---- ", user)
+         logger.info("before send : ---- " + user)
 
          const payload = {
           userId: user,
         };
 
       const token = jwt.sign(payload, secretKey, { expiresIn: 60 * 30 });
-      logger.warn ('token:', token)
-
-
+      logger.warn ('token : ' + token)
 
           res.cookie('token', token,{ path: "/" })
           return res.json(payload);
@@ -103,7 +101,6 @@ let passport = pp.passport(app);
      })(req, res, next);
    });
 
-
    app.post('/signinAdmin', async (req, res, next) => {
          passport.authenticate('admin', (authError, user, info) => {
            if (user) {
@@ -113,7 +110,7 @@ let passport = pp.passport(app);
                res.status(500);
                return next(loginError);
              }
-             logger.info("before send : ---- ", user)
+             logger.info("before send : ---- " + user)
     
              const payload = {
               userId: user.user,
@@ -121,9 +118,7 @@ let passport = pp.passport(app);
             };
     
           const token = jwt.sign(payload, secretKey, { expiresIn: 60 * 30 });
-          logger.info ('token:', token)
-    
-    
+          logger.info ('token : ' + token)
     
               res.cookie('token', token,{ path: "/" })
               return res.json(payload);
@@ -133,8 +128,6 @@ let passport = pp.passport(app);
           return res.json({msg:'err'});
          })(req, res, next);
        });
-   
-
 
 app.use(ensureAuthenticated = (req, res, next) => {
   if(req.isAuthenticated()){
