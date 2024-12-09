@@ -21,7 +21,7 @@ router.get('/getadmin/:adminId', (req, res) => {
 });
 
 router.post('/modify', (req, res) => {  
-    logger.info('/admin/modify');
+    logger.info('/admin/modify', req.body);
     adminService.modify(req, res);
 });
 
@@ -35,5 +35,9 @@ router.post('/getid', (req, res) => {
     adminService.getid(req, res);
 });
 
+router.post('/getpw', (req, res) => {  
+    logger.info('/admin/getpw');
+    adminService.getpw(req, res);
+});
 
 module.exports = router;
