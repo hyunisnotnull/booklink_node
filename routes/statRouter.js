@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const statService = require('../lib/service/statService');
+const logger = require('../lib/config/logger');
 
 // 읽은 책 가지고 오기
 router.get('/book_read', (req, res) => {  
