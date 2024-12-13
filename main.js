@@ -101,7 +101,7 @@ let passport = pp.passport(app);
           const token = jwt.sign(payload, secretKey, { expiresIn: 60 * 30 });
           logger.info ('token : ' + token)
     
-              res.cookie('token', token,{ path: "/" })
+              res.cookie('token', token,{ path: "/" });
               return res.json(payload);
             });
           }
@@ -125,7 +125,7 @@ app.use(ensureAuthenticated = (req, res, next) => {
       }
     } catch(err) {
       logger.error(err)
-      return res.redirect('http://localhost:3001/signin');
+      return res.redirect(`${process.env.CORS_REACT_USER}/signin`);
     }
 
   }
