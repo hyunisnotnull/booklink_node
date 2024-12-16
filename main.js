@@ -73,7 +73,10 @@ let passport = pp.passport(app);
       const token = jwt.sign(payload, secretKey, { expiresIn: 60 * 30 });
       logger.warn ('token : ' + token)
 
-          res.cookie('token', token,{ path: "/" })
+          res.setHeader('Access-Control-Expose-Headers', 'Authorization');
+          res.setHeader('Authorization', `Bearer ${token}`);
+
+          // res.cookie('token', token,{ path: "/" })
           return res.json(payload);
         });
       }
@@ -100,8 +103,11 @@ let passport = pp.passport(app);
     
           const token = jwt.sign(payload, secretKey, { expiresIn: 60 * 30 });
           logger.info ('token : ' + token)
+
+              res.setHeader('Access-Control-Expose-Headers', 'Authorization');
+              res.setHeader('Authorization', `Bearer ${token}`);
     
-              res.cookie('token', token,{ path: "/" });
+              // res.cookie('token', token,{ path: "/" });
               return res.json(payload);
             });
           }
