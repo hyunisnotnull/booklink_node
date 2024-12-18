@@ -146,4 +146,14 @@ package-lock.json
 # SvelteKit build / generate output
 .svelte-kit
 
+# Docker 관련 파일들
+.docker/
+docker-compose.override.yml
+docker-compose.yml
+Dockerfile
+Dockerfile.prod
+docker-compose*
+.dockerignore
+*.docker
+
 # End of https://www.toptal.com/developers/gitignore/api/node
